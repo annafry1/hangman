@@ -2,12 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hangman</title>
     <script src="script.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body onload="addButtons()">
 
+<h1>Hangman</h1>
+
+<select id="categories">
+    <option>1</option>
+    <option>2</option>
+</select>
+
+<button id="startGame" onclick="startGame()">New Game</button>
+
+<div id="buttonContainer"></div>
+<div id="output"></div>
+
+<div id="word"></div>
 
 </body>
 </html>
