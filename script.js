@@ -1,8 +1,12 @@
 var word = "";
-var words = ["Eva", "Anna", "Benjamin"];
+var names = ["EVA", "ANNA", "BENJAMIN"];
+var fruits =["BANANA", "APPLE", "KIWI"];
+var cities = ["PARIS", "MADRID", "CHICAGO"]
 var guesses = 6;
 var guessedLetters = [];
-var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','g','r','s','t','u','v','w','x','y','z'];
+var wrongLetters = [];
+var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','G','R','S','T','U','V','W','X','Y','Z'];
+
 
 function addButtons(){
     var btn;
@@ -20,29 +24,54 @@ function addButtons(){
 
 
 function startGame(){
-    //document.getElementById("").innerHTML = "";
-    //ocument.getElementById("").innerHTML = "";
-
+    document.getElementById("wrongLetters").innerHTML = "";
+    document.getElementById("lives").innerHTML = "";
+    document.getElementById("gameOver").innerHTML = "";
+    guessedLetters = [];
     var theme = document.getElementById("categories").value;
-    console.log(theme);
-    word = words[Math.floor(Math.random() * words.length)];
-    var dashes = "";
-    for(var i = 0; i < word.length; i ++){
-        dashes += "_ ";
+    if(theme == "Choose Category"){
+        document.getElementById("gameOver").innerHTML = "Please Select a Category"
+    }else{
+        if(theme == "Names"){
+            word = names[Math.floor(Math.random() * names.length)];
+        }else if(theme == "Fruits"){
+            word = fruits[Math.floor(Math.random() * fruits.length)];
+        }else if(theme == "Cities"){
+            word = cities[Math.floor(Math.random() * cities.length)];
+        }
+        console.log(word);
+        document.getElementById("lives").innerHTML = "You have 6 lives left. ";
+        printWord();
     }
-    document.getElementById("word").innerHTML = dashes;
 }
 
 function printWord(){
-
+    var newWord = "";
     for (var i = 0; i < word.length; i ++){
-
+        if (guessedLetters.indexOf(word[i]) !== -1) {
+            newWord += word[i] + " ";
+        }else{
+            newWord += "_ ";
+        }
     }
+    console.log(newWord);
+    document.getElementById("word").innerHTML = newWord;
 }
 
 
 function guessLetter(button){
-    document.getElementById("output").innerHTML = button.value;
+    //document.getElementById("output").innerHTML = button.value;
     var letter = button.value;
-    console.log(letter);
+    guessedLetters.push(letter);
+    console.log(guessedLetters);
+    printWord();
+    if(word.indexOf(guessedLetters[guessedLetters.length - 1]) === -1){
+        wrongLetters.push(guessedLetters[guessedLetters.length - 1]);
+        document.getElementById("wrongLetters").innerHTML = wrongLetters;
+        guesses --;
+        document.getElementById("lives").innerHTML = "You have " + guesses + " lives left. ";
+    }
+    if(guesses === 0){
+        document.getElementById("gameOver").innerHTML = "GAME OVER";
+    }
 }

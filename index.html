@@ -10,17 +10,25 @@
 
 <h1>Hangman</h1>
 
-<select id="categories">
-    <option>1</option>
-    <option>2</option>
+<select id="categories" >
+    <option>Choose Category</option>
+    <option>Names</option>
+    <option>Fruits</option>
+    <option>Cities</option>
 </select>
-
 <button id="startGame" onclick="startGame()">New Game</button>
+
+<div id="wrongLetters"></div>
+<div id="lives"></div>
 
 <div id="buttonContainer"></div>
 <div id="output"></div>
 
+
 <div id="word"></div>
+
+
+<h2 id="gameOver"></h2>
 
 </body>
 </html>

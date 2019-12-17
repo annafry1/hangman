@@ -1,0 +1,8 @@
+body{
+    text-align: center;
+}
+
+#wrongLetters{
+    border-style: solid;
+    border-width: inherit;
+}
