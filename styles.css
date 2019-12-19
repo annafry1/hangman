@@ -4,5 +4,5 @@ body{
 
 #wrongLetters{
     border-style: solid;
-    border-width: inherit;
+    border-width: thin;
 }

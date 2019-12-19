@@ -1,12 +1,13 @@
 var word = "";
-var names = ["EVA", "ANNA", "BENJAMIN"];
-var fruits =["BANANA", "APPLE", "KIWI"];
-var cities = ["PARIS", "MADRID", "CHICAGO"]
+var names = ["EVA", "ANNA", "BENJAMIN", "CLAIRE", "MARIE", "JOE", "FRANK", "ELIZABETH", "GABRIEL", "AMOS", "RACHEL",
+    "ELIZA", "MADDIE", "TESS", "LUKE", "MATT", "ELLA", "DASH", "COLE", "BAYARD", "MARIO", "LUCAS", "EMMETT", "FELIX"];
+var fruits =["BANANA", "APPLE", "KIWI", "ORANGE", "STARFRUIT", "DRAGONFRUIT", "BLUEBERRY", "RASPBERRY", "STRAWBERRY","MANGO"];
+var cities = ["PARIS", "MADRID", "CHICAGO"];
 var guesses = 6;
 var guessedLetters = [];
 var wrongLetters = [];
-var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','G','R','S','T','U','V','W','X','Y','Z'];
-
+var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+var images = ["images/rightleg.png", "images/leftleg.png", "images/rightarm.png", "images/leftarm.png", "images/body.png", "images/head.png"];
 
 function addButtons(){
     var btn;
@@ -14,6 +15,7 @@ function addButtons(){
 
     for(var i = 0; i < letters.length; i ++){
         btn = document.createElement("button");
+        btn.setAttribute("id", letters[i]);
         btn.setAttribute("class","ltrBtn");
         btn.setAttribute("value",letters[i]);
         btn.setAttribute("onclick","guessLetter(this)");
@@ -22,12 +24,17 @@ function addButtons(){
     }
 }
 
-
 function startGame(){
+    for(var i = 0; i < letters.length; i ++){
+        document.getElementById(letters[i]).disabled = false;
+    }
+    guessedLetters = [];
+    wrongLetters = [];
+    guesses = 6;
     document.getElementById("wrongLetters").innerHTML = "";
     document.getElementById("lives").innerHTML = "";
     document.getElementById("gameOver").innerHTML = "";
-    guessedLetters = [];
+
     var theme = document.getElementById("categories").value;
     if(theme == "Choose Category"){
         document.getElementById("gameOver").innerHTML = "Please Select a Category"
@@ -40,27 +47,36 @@ function startGame(){
             word = cities[Math.floor(Math.random() * cities.length)];
         }
         console.log(word);
-        document.getElementById("lives").innerHTML = "You have 6 lives left. ";
+        document.getElementById("lives").innerHTML = "You have " + guesses + " lives left. ";
+        document.getElementById("im").innerHTML = "<img id='image' src='images/empty.png'>";
         printWord();
     }
 }
 
 function printWord(){
     var newWord = "";
+    var left = word.length;
     for (var i = 0; i < word.length; i ++){
         if (guessedLetters.indexOf(word[i]) !== -1) {
             newWord += word[i] + " ";
+            left --;
         }else{
             newWord += "_ ";
         }
     }
     console.log(newWord);
     document.getElementById("word").innerHTML = newWord;
+    if(left === 0){
+        document.getElementById("gameOver").innerHTML = "YOU WIN";
+        for(var j = 0; j < letters.length; j ++){
+            document.getElementById(letters[j]).disabled = true;
+        }
+    }
 }
 
 
 function guessLetter(button){
-    //document.getElementById("output").innerHTML = button.value;
+    button.disabled = true;
     var letter = button.value;
     guessedLetters.push(letter);
     console.log(guessedLetters);
@@ -70,8 +86,16 @@ function guessLetter(button){
         document.getElementById("wrongLetters").innerHTML = wrongLetters;
         guesses --;
         document.getElementById("lives").innerHTML = "You have " + guesses + " lives left. ";
+        document.getElementById("im").innerHTML = "<img id='image' src=''>";
+        document.getElementById("image").src = images[guesses];
+
     }
     if(guesses === 0){
         document.getElementById("gameOver").innerHTML = "GAME OVER";
+        for(var i = 0; i < letters.length; i ++){
+            document.getElementById(letters[i]).disabled = true;
+        }
     }
+
+
 }
