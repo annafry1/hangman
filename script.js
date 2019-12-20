@@ -1,13 +1,17 @@
 var word = "";
 var names = ["EVA", "ANNA", "BENJAMIN", "CLAIRE", "MARIE", "JOE", "FRANK", "ELIZABETH", "GABRIEL", "AMOS", "RACHEL",
     "ELIZA", "MADDIE", "TESS", "LUKE", "MATT", "ELLA", "DASH", "COLE", "BAYARD", "MARIO", "LUCAS", "EMMETT", "FELIX"];
-var fruits =["BANANA", "APPLE", "KIWI", "ORANGE", "STARFRUIT", "DRAGONFRUIT", "BLUEBERRY", "RASPBERRY", "STRAWBERRY","MANGO"];
-var cities = ["PARIS", "MADRID", "CHICAGO"];
+var fruits =["BANANA", "APPLE", "KIWI", "ORANGE", "STARFRUIT", "DRAGONFRUIT", "BLUEBERRY", "RASPBERRY", "STRAWBERRY",
+    "MANGO", "PEAR", "GRAPE", "LEMON", "LIME", "TOMATO", "WATERMELON", "MELON", "PEACH", "NECTARINE", "PAPAYA", "DURIAN"];
+var cities = ["PARIS", "MADRID", "CHICAGO", "BERKELEY", "DUBAI", "LONDON", "SINGAPORE", "RICHMOND", "BERLIN", "FLORENCE",
+    "SACRAMENTO", "VANCOUVER", "OTTAWA", "TORONTO", "DENVER", "AUSTIN", "MOSCOW", "TOKYO", "LIMA", "BRASILIA", "MONTEVIDEO", "HAVANA"];
 var guesses = 6;
 var guessedLetters = [];
 var wrongLetters = [];
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 var images = ["images/rightleg.png", "images/leftleg.png", "images/rightarm.png", "images/leftarm.png", "images/body.png", "images/head.png"];
+var gamesWon = 0;
+var gamesLost = 0;
 
 function addButtons(){
     var btn;
@@ -68,6 +72,8 @@ function printWord(){
     document.getElementById("word").innerHTML = newWord;
     if(left === 0){
         document.getElementById("gameOver").innerHTML = "YOU WIN";
+        gamesWon ++;
+        document.getElementById("gamesWon").innerHTML = "Games Won: " + gamesWon;
         for(var j = 0; j < letters.length; j ++){
             document.getElementById(letters[j]).disabled = true;
         }
@@ -88,14 +94,17 @@ function guessLetter(button){
         document.getElementById("lives").innerHTML = "You have " + guesses + " lives left. ";
         document.getElementById("im").innerHTML = "<img id='image' src=''>";
         document.getElementById("image").src = images[guesses];
-
     }
     if(guesses === 0){
         document.getElementById("gameOver").innerHTML = "GAME OVER";
         for(var i = 0; i < letters.length; i ++){
             document.getElementById(letters[i]).disabled = true;
         }
+        gamesLost ++;
+        document.getElementById("gamesLost").innerHTML = "Games Lost: " + gamesLost;
+        document.getElementById("wordWas").innerHTML = "Your word was " + word;
     }
+
 
 
 }
