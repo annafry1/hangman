@@ -1,11 +1,5 @@
 body{
     text-align: center;
-    font-family: "American Typewriter";
-
-}
-
-#h1{
-    font: "American Typewriter";
 }
 
 #wrongLetters{
@@ -29,5 +23,6 @@ button{
     border-color: black;
 }
 
-#gamesLost, #gamesWon{
+#gamesLost, #gamesWon {
     position: relative;
+}
